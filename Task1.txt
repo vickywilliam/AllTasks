@@ -1,0 +1,60 @@
+                                          Task -1
+
+The provided code snippet appears to have a few issues and can be enhanced for better readability 
+and error handling. Here are some suggestions:
+
+Remove the Infinite Loop: The current code snippet uses an infinite loop (while (true)) 
+and relies on catching ArrayIndexOutOfBoundsException to terminate it. This is not a good practice. 
+Instead, you can use a for loop to iterate through the args array, which will make the code cleaner
+and avoid the need for an exception for control flow.
+
+
+public class ArrArgs {
+    public static void main(String[] args) {
+        try {
+            for (int k = 0; k < args.length; k++) {
+                System.out.println("Value of input is " + k + " and argument is " + args[k]);
+            }
+        } catch (ArrayIndexOutOfBoundsException errorOc) {
+            System.err.println("Error occurred " + errorOc.toString());
+        }
+    }
+}
+Use a for-each Loop: In this case, you can also use a for-each loop to iterate through the 
+args array, which simplifies the code further:
+
+
+public class ArrArgs {
+    public static void main(String[] args) {
+        try {
+            int k = 0;
+            for (String arg : args) {
+                System.out.println("Value of input is " + k++ + " and argument is " + arg);
+            }
+        } catch (ArrayIndexOutOfBoundsException errorOc) {
+            System.err.println("Error occurred " + errorOc.toString());
+        }
+    }
+}
+Error Handling: It's better to handle errors gracefully. Instead of just printing the
+ error message, you should consider appropriate error handling. For example, you can display 
+a user-friendly message to inform the user that the program expects command-line arguments if
+no arguments are provided:
+
+public class ArrArgs {
+    public static void main(String[] args) {
+        if (args.length == 0) {
+            System.out.println("Please provide command-line arguments.");
+            return;
+        }
+        
+        try {
+            int k = 0;
+            for (String arg : args) {
+                System.out.println("Value of input is " + k++ + " and argument is " + arg);
+            }
+        } catch (ArrayIndexOutOfBoundsException errorOc) {
+            System.err.println("Error occurred " + errorOc.toString());
+        }
+    }
+}

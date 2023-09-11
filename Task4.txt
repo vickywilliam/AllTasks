@@ -1,0 +1,91 @@
+                                                                    Task 4
+ 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Scanner;
+
+class MenuItem {
+    private String name;
+    private String category;
+    private double price;
+
+    public MenuItem(String name, String category, double price) {
+        this.name = name;
+        this.category = category;
+        this.price = price;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    @Override
+    public String toString() {
+        return "Name: " + name + ", Category: " + category + ", Price: $" + price;
+    }
+}
+
+public class RestaurantMenu {
+    public static void main(String[] args) {
+        List<MenuItem> menu = new ArrayList<>();
+
+        // Read menu items from user input
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.println("Enter item name (or 'exit' to finish): ");
+            String name = scanner.nextLine().trim();
+            if (name.equalsIgnoreCase("exit")) {
+                break;
+            }
+
+            System.out.println("Enter category: ");
+            String category = scanner.nextLine().trim();
+
+            System.out.println("Enter price: ");
+            double price = scanner.nextDouble();
+            scanner.nextLine(); // Consume the newline character
+
+            MenuItem item = new MenuItem(name, category, price);
+            menu.add(item);
+        }
+
+        // Sort the menu based on user choice (category, price, or name)
+        System.out.println("Sort menu by (category/price/name): ");
+        String sortBy = scanner.nextLine().trim().toLowerCase();
+
+        switch (sortBy) {
+            case "category":
+                Collections.sort(menu, Comparator.comparing(MenuItem::getCategory));
+                break;
+            case "price":
+                Collections.sort(menu, Comparator.comparing(MenuItem::getPrice));
+                break;
+            case "name":
+                Collections.sort(menu, Comparator.comparing(MenuItem::getName));
+                break;
+            default:
+                System.out.println("Invalid sorting option.");
+                break;
+        }
+
+        // Print the sorted menu
+        System.out.println("\nSorted Menu:");
+        for (MenuItem item : menu) {
+            System.out.println(item);
+        }
+    }
+}
+
+
+
+

@@ -1,0 +1,39 @@
+                                            Task-2
+
+If a Java Security Manager is installed and the provided program is run, it might encounter 
+security exceptions depending on the security policy in place. The exact behavior can vary 
+depending on the security manager configuration and the permissions granted to the code.
+
+Here's a breakdown of potential security-related issues:
+
+File Access: The program reads from a file named "input.txt" and writes to a file
+ named "output.txt." If the security policy restricts file access, the program may 
+encounter a SecurityException when trying to read from or write to these files.
+
+System Properties: The program calls System.getProperty("user.home") to retrieve the 
+user's home directory. If the security policy restricts access to system properties,
+ it may throw a SecurityException.
+
+Resource Loading: If the program uses classes or resources that are not part of the default 
+classpath, it may attempt to load classes or resources from locations that are not allowed by 
+the security policy. This could result in a SecurityException.
+
+Network Access: If the program attempts any network operations (e.g., connecting to a remote server)
+, it may also be subject to security restrictions related to network access.
+
+Custom Security Policies: If a custom security policy is defined, it can further restrict or
+ grant specific permissions to the program.
+
+The specific output and behavior of the program will depend on how the Java Security Manager is 
+configured and what permissions are granted or denied. In the event of a security exception, you 
+will likely see an error message indicating the nature of the security violation.
+
+To run the program successfully under a Java Security Manager, you would need to ensure that the
+ necessary permissions are granted in the security policy file (e.g., java.policy) or through 
+runtime configuration.
+
+It's important to note that running code under a security manager is typically done in situations
+ where security is a critical concern, such as in applets or server environments, and requires
+ careful configuration and testing to ensure that the application behaves as expected while
+ maintaining security.
+

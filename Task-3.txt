@@ -1,0 +1,65 @@
+To create an OutOfMemoryError using StringBuffer and then resolve it with and without Garbage 
+Collection (GC), you can follow these steps. In this example, we'll use a loop to repeatedly
+ append a string to a StringBuffer to consume memory until an OutOfMemoryError occurs:
+
+public class OutOfMemoryExample {
+    public static void main(String[] args) {
+        try {
+            long count = 0;
+            while (true) {
+                StringBuffer stringBuffer = new StringBuffer();
+                stringBuffer.append("This is a test string.");
+                count++;
+                if (count % 100000 == 0) {
+                    System.out.println("Records processed: " + count);
+                }
+            }
+        } catch (OutOfMemoryError e) {
+            System.err.println("OutOfMemoryError occurred.");
+            e.printStackTrace();
+        }
+    }
+}
+In this program, we continuously create new StringBuffer instances and append a string to 
+them inside the loop. As memory is consumed, eventually an OutOfMemoryError will be thrown.
+
+Now, let's discuss how to resolve this issue with and without Garbage Collection:
+
+Without Garbage Collection (GC):
+
+Increase Heap Size: You can increase the heap size by setting the -Xmx option when running the 
+Java application. For example, to allocate 512MB of heap memory, you can use: java -Xmx512m OutOfMemoryExample.
+ This allows the program to consume more memory before encountering an OutOfMemoryError.
+With Garbage Collection (GC):
+
+Optimize Code: One way to resolve the issue with GC is to optimize your code to minimize memory 
+usage. In the original example, you are creating new StringBuffer instances in a loop without 
+releasing them, which leads to memory exhaustion. Consider reusing StringBuffer instances or
+ using a different data structure if possible.
+
+Manual Garbage Collection: You can manually trigger garbage collection in your code using 
+System.gc(). However, this is not a guaranteed way to prevent an OutOfMemoryError because the 
+JVM decides when and how to perform garbage collection.
+
+Here's an example of how to manually trigger garbage collection:
+
+public class OutOfMemoryExampleWithGC {
+    public static void main(String[] args) {
+        try {
+            long count = 0;
+            while (true) {
+                StringBuffer stringBuffer = new StringBuffer();
+                stringBuffer.append("This is a test string.");
+                count++;
+                if (count % 100000 == 0) {
+                    System.out.println("Records processed: " + count);
+                    System.gc(); // Trigger garbage collection
+                }
+            }
+        } catch (OutOfMemoryError e) {
+            System.err.println("OutOfMemoryError occurred.");
+            e.printStackTrace();
+        }
+    }
+}
+
